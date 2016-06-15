@@ -17,6 +17,7 @@ Operation
     ListInsert(*L,i,e):在线性表L中的第i个位置，插入新元素e。
     ListDelete(*L,i,*e):删除线性表L中第i个位置元素，并用e返回其值。
 ```
+
 ##线性表的存储顺序
 
 ###1. 顺序存储结构方式
