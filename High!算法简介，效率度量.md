@@ -123,7 +123,8 @@ $$ n + (n - 1) + (n - 2) + ... + 1 = \frac{n(n+1)}2 = \frac{n^2}2 + \frac n2$$
 >再思考，这一段代码的时间复杂度。
 
 ```c
-void function(int count·{
+void function(int count)
+{
     int j;
     for(j = 0; j < count ; j++)
     {
