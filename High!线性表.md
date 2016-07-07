@@ -13,7 +13,7 @@
 __线性表元素的个数n(n>=0)定义为线性表的长度，当n=0时，称为空表。____称i为数据元素__$ a_i $ __在线性表中的位序 __ 。
 
 
-##线性表的类型定义
+## 线性表的类型定义
 ```
 ADT 线性表（List）
 Data
@@ -64,7 +64,9 @@ typedef struct SqList
 >线性表的起始下标是1，于是线性表的第i个元素是要存储在数组下标为i-1的位置。
 
 假设每个顺序元素占c个存储单元，那么线性表中第i+1个数据元素的存储位置和第i个数据元素的存储位置满足以下关系（LOC表示获得存储位置的函数）：
+
 $$ LOC(a_{i+1})=LOC(a_i)+c $$
+
 $$ LOC(a_i)=LOC(a_1)+(i-1)*c  $$
 
 如图(注意理解图中数组与线性表的两者下标对应关系总是相差1；和对LOC公式的理解):
@@ -179,7 +181,7 @@ Status ListDelete(SqList *L, int i, ElemType *e)
 
 ---
 
-###2.线性表的链式存储结构
+### 2.线性表的链式存储结构
 #### 概念
 * 存储数据元素信息的域称为数据域，把存储直接后继位置的域称为指针域，有图：
 
@@ -195,7 +197,7 @@ Status ListDelete(SqList *L, int i, ElemType *e)
 **头指针：** 链表中第一个结点的存储位置叫做**头指针**，整个链表的存取是从头指针开始进行。
 
 **头节点：** 为了方便对链表进行操作，会在单链表的第一个节点前附设一个结点，称为头节点。有了头节点，对链表第一个元素的操作就和之后的元素一样了，不必再专门为第一个元素编写函数了，大大方便了很多。头节点的数据域可以不存储任何信息。也可以存储如线性表的长度等附加信息，__头节点的指针域存储指向第一个结点的指针。__
- 
+
 ###### 两者的异同：
 
 | 头指针 | 头节点 |
@@ -289,7 +291,7 @@ p->next = s;
 
 Absolute not. 如果先p->next=s;再s->next=p->next;会怎么样？哈哈，因为 n此时第一句会使得将p->next给覆盖成s的地址了。那么s->next=p->next，其实就等于s->next=s，这样真正的拥有$ a_{i+1} $数据元素的结点就没了上级。这样的插入操作就是失败的，造成了临场掉链子的尴尬局面。所以这两句是无论如何不能反的。
 
->是不是还有一个这样的疑问：如何在表头或者表尾进行插入操作？ 
+>是不是还有一个这样的疑问：如何在表头或者表尾进行插入操作？
 
 就是因为之前有头节点的设计，所以不用担心这一点，单链表的表头和表尾的特殊情况，操作是和其他结点相同的。比如插入位置是第一个节点，看图：
 
@@ -301,8 +303,8 @@ __总结下来，单链表第i个数据插入结点的算法思路：__
 2. 当$ j < i $时，就遍历 链表，让p的指针向后移动，不断指向下一结点，j累加1。
 3. 若到链表末尾p为空，则说明第i个结点不存在；
 4. 否则查找成功，在系统中生成一个空结点s；
-5. 将数据元素e赋值给s->data； 
-6. 单链表的插入标准语句(其实就是一针线活：拆穿)s->next=p->next;p->next=s； 
+5. 将数据元素e赋值给s->data；
+6. 单链表的插入标准语句(其实就是一针线活：拆穿)s->next=p->next;p->next=s；
 7. 返回成功标致。
 
 __单链表第i个数据插入结点的算法实现代码：__
@@ -325,7 +327,7 @@ Status ListInsert(LinkList *L, int i; ElemType e)
         return ERROR;
     /* 生成新节点：
        1. 使用malloc开辟一块空间，用于盛放Node类型的结点——转换为LinkList类型。
-       2. s接受这个地址，s完成了初始化 
+       2. s接受这个地址，s完成了初始化
        3. 向s->data中填入数据*/
     s = (LinkList)malloc(sizeof(Node));
     s->data = e;
@@ -381,7 +383,7 @@ Status ListDelete(LinkList *L, int i)
         return ERROR;
 
     /* 针线活：
-         1.将q的后继赋值给p的后继，让p实现了跳跃 
+         1.将q的后继赋值给p的后继，让p实现了跳跃
          2.将q结点中的数据给e */
     q = p->next;
     p->next = q->next;
@@ -549,7 +551,7 @@ Status ClearList(LinkList *L)
 ```c
 /* 线性链表静态链表的存储结构 */
 #define MAXSIZE 1000 /* 假设静态链表的最大长度是1000 */
-typedef struct 
+typedef struct
 {
     ElemType data;
     int cur; /* 游标(Cursor),为0时表示无指向 */
@@ -606,7 +608,7 @@ Status InitList(StaticLinkList space)
 int Malloc_SSL(StaticLinkList space)
 {
     int i = space[0].cur; /* 当前数组第一个元素的cur值，就是备用链表的第一个分量 */
-    if(space[0].cur) 
+    if(space[0].cur)
         space[0].cur = space[i].cur;/* 使用了备用链表的一个分量，所以把下一个备用链
                                        表的分量的下标存为数组第一个元素的cur值，也就
                                        是为下一次的获取备用链表分量做好准备 */
@@ -634,10 +636,10 @@ _现在需要在“乙”和“丁”之间，插入一个值为“丙”的元�
 
 ```c
 /* 在 L 中第 i 个元素之前插入新的数据元素 e */  
-Status ListInsert(StaticLinkList L, int i, ElemType e) 
+Status ListInsert(StaticLinkList L, int i, ElemType e)
 {  
     int j, k, l;  
-  
+
     k = MAXSIZE - 1; /* 注意 k 首先是最后一个元素的下标 */  
     if (i < 1 || i > ListLength(L) + 1)  /* 判断插入位置是否正确 */
         return ERROR;  
@@ -713,7 +715,7 @@ void Free_SSL(StaticLinkList space, int k)
 总的来说，静态链表其实是为了给没有指针的高级语言设计的一种实现单链表能力的方法。这样的思考方式很可贵，重在理解它的思想。
 
 <br>
-## 循环链表 
+## 循环链表
 
 ### 概念
 
@@ -724,23 +726,3 @@ void Free_SSL(StaticLinkList space, int k)
 ![](resource/img/循环链表空链表的结构.png)
 
 *循环单链表为空时，只有头节点，头节点的指针域存自身的位置（头节点点首地址位置），就形成了如图所示的结构*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
